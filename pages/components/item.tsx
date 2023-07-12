@@ -9,12 +9,14 @@ interface ItemProps {
   id: number;
   price: number;
   hearts: number;
+  image: string;
 }
 
 export default function Item({
   title,
   price,
   hearts,
+  image,
   id,
 }: ItemProps) {
   return (
@@ -23,7 +25,12 @@ export default function Item({
       className="flex px-4 pt-5 cursor-pointer justify-between"
     >
       <div className="flex space-x-4">
-        <div className="w-20 h-20 bg-gray-400 rounded-md">
+        <div className="w-20 h-20 border-1 rounded-md relative">
+          <Image
+            src={`https://imagedelivery.net/u7wvD59l3UZuCFJ8LR4Yaw/${image}/public`}
+            layout="fill"
+            alt=""
+          />
         </div>
         <div className="pt-2 flex flex-col">
           <h3 className="text-sm font-medium text-gray-900">{title}</h3>

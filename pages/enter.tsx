@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import useMutation from "./libs/client/useMutation";
 import { useRouter } from "next/router";
 
+
 interface EnterForm {
   email?: string;
   phone?: string;
@@ -20,6 +21,7 @@ interface EnterMutationResult {
 }
 
 const Enter: NextPage = () => {
+
   const [enter, { loading, data, error }] =
     useMutation<EnterMutationResult>("/api/users/enter");
 
@@ -50,16 +52,24 @@ const Enter: NextPage = () => {
   };
 
   const router = useRouter();
+
+
   useEffect(() => {
     if (tokenData?.ok) {
       router.push("/");
     }
   }, [tokenData, router]);
- 
+
+  const kakaoLogin=()=>{
+    window.Kakao.Auth.authorize({
+      redirectUri: "http://localhost:3000/kakao",
+    });
+  }
+
   return (
     <div className="mt-16 px-3">
       <h3 className="text-3xl p-5 font-bold text-center rounded-2xl text-white bg-gradient-to-r from-purple-400 from-10% via-orange-200 via-60% to-teal-200 to-90% ">
-      무지개마켙
+        무지개마켇
       </h3>
       <div className="mt-16">
         {data?.ok ? (
@@ -179,7 +189,7 @@ const Enter: NextPage = () => {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3 mt-6">
-            <button className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-500 hover:text-white hover:bg-[#CEC8E6] hover:ring-2 hover:ring-offset-2 hover:ring-purple-400 ease-in-out duration-300">
+            <button onClick={kakaoLogin} className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-500 hover:text-white hover:bg-[#CEC8E6] hover:ring-2 hover:ring-offset-2 hover:ring-purple-400 ease-in-out duration-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="1em"
@@ -200,6 +210,7 @@ const Enter: NextPage = () => {
           </div>
         </div>
       </div>
+  
     </div>
   );
 };

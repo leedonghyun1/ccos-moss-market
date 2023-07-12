@@ -23,7 +23,6 @@ interface ProductsResponse {
 
 export function Home() {
   const { data } = useSWR<ProductsResponse>("/api/products");
-
   return (
     <Layout title="Home" hasTabBar seoTitle="Home">
         <div className="flex flex-col space-y-5 py-10">
@@ -32,6 +31,7 @@ export function Home() {
               id={products.id}
               key={products.id}
               title={products.name}
+              image={products.image}
               price={products.price}
               hearts={products._count?.favorite || 0}
             />

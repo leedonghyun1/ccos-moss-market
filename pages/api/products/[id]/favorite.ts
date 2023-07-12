@@ -41,7 +41,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponsType>) {
       }
     })
   }
-
   res.json({
     ok: true,
   });

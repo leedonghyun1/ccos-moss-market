@@ -17,6 +17,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponsType>) {
     profile,
   });
  }
+
  if ( req.method === "POST"){
   const {
     session: { user },
@@ -56,7 +57,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponsType>) {
     })
     res.json({ ok: true });
   }
-  if ( phone && phone !== currentUser?.phone) {
+  if (phone && phone !== currentUser?.phone) {
     const alreadyExists = Boolean(
       await client.user.findUnique({
         where: {
@@ -67,20 +68,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponsType>) {
         },
       })
     );
-    if(alreadyExists){
+    if (alreadyExists) {
       return res.json({
         ok: true,
         error: "Phone number already taken.",
       });
     }
     await client.user.update({
-      where:{
-        id:user?.id,
+      where: {
+        id: user?.id,
       },
-      data:{
+      data: {
         phone,
-      }
-    })
+      },
+    });
     res.json({ ok: true });
   }
   if(name){

@@ -11,6 +11,18 @@ datasource db {
   relationMode = "prisma"
 }
 
+model KakaoUser {
+  id         Int      @id @default(autoincrement())
+  kakaoId  BigInt
+  name       String?
+  profile_image String?
+  thumbnail_image String?
+  loggedFrom String
+  connectedAt   DateTime @default(now())
+  updateAt   DateTime @updatedAt
+}
+
+
 model User {
   id              Int         @id @default(autoincrement())
   phone           String?     @unique
@@ -29,8 +41,8 @@ model User {
   receivedReviews Review[]    @relation(name: "receivedReviews")
   Sold            Sold[]
   purchase        Purchase[]
-  stream Stream[]
-  mesaage Message[]
+  stream          Stream[]
+  mesaage         Message[]
 }
 
 model Token {
@@ -108,9 +120,9 @@ model Review {
   review       String   @db.MediumText
   createdBy    User     @relation(name: "writtenReviews", fields: [createdById], references: [id], onDelete: Cascade)
   createdById  Int
-  createdFor    User     @relation(name: "receivedReviews", fields: [createdForId], references: [id], onDelete: Cascade)
+  createdFor   User     @relation(name: "receivedReviews", fields: [createdForId], references: [id], onDelete: Cascade)
   createdForId Int
-  score Int @default(1)
+  score        Int      @default(1)
 }
 
 model Sold {
@@ -134,29 +146,27 @@ model Purchase {
 }
 
 model Stream {
-  id           Int      @id @default(autoincrement()) 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  name String
-  description String @db.MediumText
-  price Int
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int
-  message Message[]
-  cloudflareId String
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  name          String
+  description   String    @db.MediumText
+  price         Int
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int
+  message       Message[]
+  cloudflareId  String
   cloudflareUrl String
   cloudflareKey String
-
 }
 
 model Message {
-  id           Int      @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int
-  message String @db.MediumText
-  stream    Stream     @relation(fields: [streamId], references: [id], onDelete: Cascade)
-  streamId    Int
-  
+  message   String   @db.MediumText
+  stream    Stream   @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  streamId  Int
 }

@@ -16,7 +16,6 @@ interface StreamResponse {
 const Streams: NextPage = () => {
   const router = useRouter();
   const { data } = useSWR<StreamResponse>(`/api/streams/`);
-  console.log(data);
 
   return (
     <Layout hasTabBar title="Live" seoTitle="Live">

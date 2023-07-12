@@ -1,6 +1,7 @@
 import { ProductWithFavsCount } from "pages";
 import useSWR from "swr";
 import Item from "./item";
+import { Reorder } from "framer-motion";
 
 interface Record {
   id:number;
@@ -23,6 +24,7 @@ export default function ProductList({kind}: ProductListProps) {
         <Item
           id={records.product.id}
           key={records.id}
+          image={records.product.image}
           title={records.product.name}
           price={records.product.price}
           hearts={records.product._count.favorite}
